@@ -1,0 +1,67 @@
+Fiche Documentaire : Entraînement d'un Modèle de Traduction avec Hugging Face Transformers
+
+Objectif :
+Entraîner un modèle de traduction de l'anglais vers le français en utilisant la bibliothèque Hugging Face Transformers.
+
+Étapes Clés :
+
+Installation des Bibliothèques :
+
+Installe ou met à jour les bibliothèques nécessaires, dont accelerate, transformers, datasets, sentencepiece, sacrebleu et bert-score.
+
+Chargement du Jeu de Données :
+
+Utilise la bibliothèque datasets pour charger un jeu de données de traduction ("kde4") avec des paires de langues anglais-français.
+
+Prétraitement des Données :
+
+Sélectionne un sous-ensemble du jeu de données pour l'entraînement et le divise en ensembles d'entraînement et de test.
+
+Tokenisation :
+
+Charge un tokenizer pré-entraîné ("Helsinki-NLP/opus-mt-en-fr").
+Tokenise des phrases exemple en anglais et en français.
+
+Définition de la Fonction de Tokenisation :
+
+Définit tokenizer_fn pour tokeniser un lot d'échantillons, à la fois les textes sources et cibles.
+
+Tokenisation du Jeu de Données :
+
+Applique la fonction tokenizer_fn au jeu de données, convertissant les données en format compatible avec le modèle.
+
+Chargement d'un Modèle Seq2Seq :
+
+Charge un modèle Seq2Seq pré-entraîné pour la traduction ("Helsinki-NLP/opus-mt-en-fr").
+
+Utilisation de DataCollator :
+
+Crée un DataCollatorForSeq2Seq pour gérer le remplissage des données et la conversion en tenseurs.
+
+Installation de Métriques BLEU et BERT-score :
+
+Installe les bibliothèques "sacrebleu" et "bert-score" pour évaluer les traductions.
+
+Création de la Fonction de Calcul des Métriques :
+
+Définit compute_metrics pour calculer les métriques BLEU et BERT-score.
+
+Définition des Paramètres d'Entraînement :
+
+Définit les arguments d'entraînement, incluant la fréquence d'évaluation, la taille des lots, le taux d'apprentissage, etc.
+
+Création d'un Entraîneur (Trainer) :
+
+Crée un entraîneur Seq2SeqTrainer avec le modèle, les données, le DataCollator, le tokenizer et les paramètres d'entraînement.
+
+Entraînement du Modèle :
+
+Entraîne le modèle en utilisant l'entraîneur créé.
+
+Sauvegarde du Modèle Entraîné :
+
+Sauvegarde le modèle entraîné sur le disque.
+
+Utilisation du Modèle Sauvegardé :
+
+Crée un pipeline de traduction à partir du modèle sauvegardé pour traduire des phrases.

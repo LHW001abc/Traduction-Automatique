@@ -1,0 +1,44 @@
+1-Installation des Bibliothèques Nécessaires : Le code commence par installer ou mettre à jour plusieurs bibliothèques, dont accelerate, transformers, datasets, sentencepiece, sacrebleu et bert-score.
+
+2-Chargement du Jeu de Données : Le code charge un jeu de données de traduction appelé "kde4" avec des paires de langues anglais ("en") et français ("fr") en utilisant la bibliothèque datasets de Hugging Face.
+
+3-Prétraitement des Données :
+Un sous-ensemble plus petit du jeu de données est sélectionné pour l'entraînement en mélangeant et en choisissant une partie des données.
+Les données sélectionnées sont divisées en ensembles d'entraînement et de test à l'aide de la méthode train_test_split.
+
+4-Tokenisation :
+Un tokenizer pré-entraîné (AutoTokenizer) est chargé à partir du point de contrôle "Helsinki-NLP/opus-mt-en-fr".
+Une phrase exemple en anglais et sa traduction française correspondante sont tokenisées à l'aide du tokenizer.
+
+5-Définition de la Fonction de Tokenisation :
+Une fonction tokenizer_fn est définie pour tokenizer un lot d'échantillons de données. Elle tokenise à la fois les textes sources et cibles, en définissant une longueur maximale et en marquant les troncatures.
+
+6-Tokenisation du Jeu de Données :
+Le jeu de données est tokenisé à l'aide de la fonction tokenizer_fn, en spécifiant le mode lot par lot (batched=True) et en supprimant les colonnes non nécessaires.
+
+7-Chargement d'un Modèle Seq2Seq :
+Un modèle Seq2Seq pré-entraîné (AutoModelForSeq2SeqLM) est chargé à partir du point de contrôle "Helsinki-NLP/opus-mt-en-fr".
+
+8-Utilisation de DataCollator pour le Remplissage et la Conversion en Tenseurs Torch :
+Un DataCollatorForSeq2Seq est créé pour gérer le remplissage des données et la conversion en tenseurs compatibles avec le modèle. Ce DataCollator utilise le tokenizer et le modèle précédemment chargé.
+
+9Installation de Métriques BLEU et BERT-score :
+Les bibliothèques "sacrebleu" et "bert-score" sont installées pour permettre le calcul des métriques BLEU et BERT-score.
+
+10-Création de la Fonction de Calcul des Métriques Personnalisées :
+Une fonction compute_metrics est définie pour calculer les métriques d'évaluation. Cette fonction prend en compte les prédictions du modèle et les comparera aux références.
+
+11-Définition des Paramètres d'Entraînement :
+Des arguments d'entraînement (Seq2SeqTrainingArguments) sont définis. Ils spécifient des détails tels que la fréquence d'évaluation, la fréquence de sauvegarde, la taille des lots d'entraînement et d'évaluation, le taux d'apprentissage, etc.
+
+12-Création d'un Entraîneur (Trainer) :
+Un entraîneur (Seq2SeqTrainer) est créé en utilisant le modèle, les arguments d'entraînement, les ensembles de données tokenisés, le DataCollator, le tokenizer et la fonction de calcul des métriques.
+
+13-Entraînement du Modèle :
+Le modèle est entraîné en utilisant l'entraîneur précédemment créé.
+
+14-Sauvegarde du Modèle Entraîné :
+Le modèle entraîné est sauvegardé sur le disque.
+
+15-Utilisation du Modèle Sauvegardé pour la Traduction :
+Un pipeline de traduction (pipeline) est créé en utilisant le modèle sauvegardé, ce qui permet de traduire des phrases de l'anglais vers le français.
